@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Movie Booking System</title>
+</head>
+
+<body>
+
+    <h1>Movie Booking System</h1>
+
+    <div>
+
+        <button onclick="moviesAvailable()">
+            1. Movies Available
+        </button>
+
+        <button onclick="bookTicket()">
+            2. Book a Ticket
+        </button>
+
+        <button onclick="cancelTicket()">
+            3. Cancel Ticket
+        </button>
+
+        <button onclick="bookingHistory()">
+            4. Booking History
+        </button>
+
+        <button onclick="exitSystem()">
+            5. Exit
+        </button>
+
+    </div>
+
+    <br>
+
+    <div id="app"></div>
+
+    <script>
+
+        const movies = [
+
+            {
+                title: "Odyssey",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "PVR Cinemas",
+                        ticketPrice: 350,
+                        seats: []
+                    },
+
+                    {
+                        name: "INOX Movies",
+                        ticketPrice: 250,
+                        seats: []
+                    },
+
+                    {
+                        name: "Cinepolis VIP",
+                        ticketPrice: 500,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Pirates of the Caribbean: Dead Men Tell No Tales",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "IMAX 3D",
+                        ticketPrice: 600,
+                        seats: []
+                    },
+
+                    {
+                        name: "Carnival Cinemas",
+                        ticketPrice: 280,
+                        seats: []
+                    },
+
+                    {
+                        name: "Regal Theatre",
+                        ticketPrice: 300,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Avengers: Age of Ultron",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "PVR IMAX",
+                        ticketPrice: 550,
+                        seats: []
+                    },
+
+                    {
+                        name: "Miraj Cinemas",
+                        ticketPrice: 200,
+                        seats: []
+                    },
+
+                    {
+                        name: "City Pride",
+                        ticketPrice: 180,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Inception",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "INOX Laserplex",
+                        ticketPrice: 400,
+                        seats: []
+                    },
+
+                    {
+                        name: "Drive-in Cinema",
+                        ticketPrice: 350,
+                        seats: []
+                    },
+
+                    {
+                        name: "Cinepolis",
+                        ticketPrice: 300,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Mad Max Furiosa",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "PVR Director's Cut",
+                        ticketPrice: 800,
+                        seats: []
+                    },
+
+                    {
+                        name: "Carnival Cinemas",
+                        ticketPrice: 250,
+                        seats: []
+                    },
+
+                    {
+                        name: "Mukta A2 Cinemas",
+                        ticketPrice: 220,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Justice League Snyder's Cut",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "IMAX 3D",
+                        ticketPrice: 650,
+                        seats: []
+                    },
+
+                    {
+                        name: "PVR Cinemas",
+                        ticketPrice: 350,
+                        seats: []
+                    },
+
+                    {
+                        name: "Regal Theatre",
+                        ticketPrice: 280,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Pacific Rim",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "Cinepolis 4DX",
+                        ticketPrice: 700,
+                        seats: []
+                    },
+
+                    {
+                        name: "INOX Movies",
+                        ticketPrice: 250,
+                        seats: []
+                    },
+
+                    {
+                        name: "City Pride",
+                        ticketPrice: 150,
+                        seats: []
+                    }
+                ]
+            },
+
+            {
+                title: "Jurassic Park",
+                language: "English",
+
+                theatres: [
+                    {
+                        name: "PVR Cinemas",
+                        ticketPrice: 300,
+                        seats: []
+                    },
+
+                    {
+                        name: "Miraj Cinemas",
+                        ticketPrice: 200,
+                        seats: []
+                    },
+
+                    {
+                        name: "Drive-in Cinema",
+                        ticketPrice: 450,
+                        seats: []
+                    }
+                ]
+            }
+
+        ];
+
+
+        let bookingHistoryList = [];
+
+        let bookingId = 5001;
+
+        let selectedMovie;
+
+        let selectedTheatre;
+
+
+        function moviesAvailable() {
+
+            let output =
+                "<h2>Movies Available</h2>";
+
+            for (
+                let i = 0;
+                i < movies.length;
+                i++
+            ) {
+
+                output +=
+                    (i + 1) +
+                    ". " +
+                    movies[i].title +
+                    " (" +
+                    movies[i].language +
+                    ")" +
+                    "<br>";
+            }
+
+            document.getElementById("app").innerHTML =
+                output;
+        }
+
+
+        function bookTicket() {
+
+            let output =
+                "<h2>Movies Available</h2>";
+
+            for (
+                let i = 0;
+                i < movies.length;
+                i++
+            ) {
+
+                output +=
+                    (i + 1) +
+                    ". " +
+                    movies[i].title +
+                    " (" +
+                    movies[i].language +
+                    ")" +
+                    "<br>";
+            }
+
+            output += `
+                <br>
+
+                Enter movie number:
+
+                <input
+                    type="number"
+                    id="movieNumber"
+                >
+
+                <button onclick="selectMovie()">
+                    Select Movie
+                </button>
+            `;
+
+            document.getElementById("app").innerHTML =
+                output;
+        }
+
+
+        function selectMovie() {
+
+            let movieNumber =
+                Number(
+                    document.getElementById("movieNumber").value
+                );
+
+            if (
+                movieNumber < 1 ||
+                movieNumber > movies.length
+            ) {
+
+                alert("Invalid movie selection.");
+
+                return;
+            }
+
+            selectedMovie =
+                movies[movieNumber - 1];
+
+            let output =
+                "<h2>Select Theatre for " +
+                selectedMovie.title.toUpperCase() +
+                "</h2>";
+
+            for (
+                let i = 0;
+                i < selectedMovie.theatres.length;
+                i++
+            ) {
+
+                let theatre =
+                    selectedMovie.theatres[i];
+
+                output +=
+                    (i + 1) +
+                    ". " +
+                    theatre.name +
+                    " | Ticket Price: Rs. " +
+                    theatre.ticketPrice +
+                    "<br>";
+            }
+
+            output += `
+                <br>
+
+                Enter theatre number:
+
+                <input
+                    type="number"
+                    id="theatreNumber"
+                >
+
+                <button onclick="selectTheatre()">
+                    Select Theatre
+                </button>
+            `;
+
+            document.getElementById("app").innerHTML =
+                output;
+        }
+
+
+        function selectTheatre() {
+
+            let theatreNumber =
+                Number(
+                    document.getElementById("theatreNumber").value
+                );
+
+            if (
+                theatreNumber < 1 ||
+                theatreNumber > selectedMovie.theatres.length
+            ) {
+
+                alert("Invalid theatre selection.");
+
+                return;
+            }
+
+            selectedTheatre =
+                selectedMovie.theatres[theatreNumber - 1];
+
+            showSeats();
+        }
+
+
+        function showSeats() {
+
+            let output =
+                "<h2>Seat Selection</h2>";
+
+            output +=
+                "<p>Movie: " +
+                selectedMovie.title +
+                "</p>";
+
+            output +=
+                "<p>Theatre: " +
+                selectedTheatre.name +
+                "</p>";
+
+            output +=
+                "<p>Ticket Price: Rs. " +
+                selectedTheatre.ticketPrice +
+                "</p>";
+
+            output +=
+                "<h3>SCREEN</h3>";
+
+            for (let i = 1; i <= 36; i++) {
+
+                let booked = false;
+
+                for (
+                    let j = 0;
+                    j < bookingHistoryList.length;
+                    j++
+                ) {
+
+                    let booking =
+                        bookingHistoryList[j];
+
+                    if (
+                        booking.movieName === selectedMovie.title &&
+                        booking.theatreName === selectedTheatre.name &&
+                        booking.seatNumber === i
+                    ) {
+
+                        booked = true;
+
+                        break;
+                    }
+                }
+
+                if (booked) {
+
+                    output +=
+                        "[ XX ] ";
+
+                } else {
+
+                    if (i < 10) {
+
+                        output +=
+                            "[ 0" + i + " ] ";
+
+                    } else {
+
+                        output +=
+                            "[ " + i + " ] ";
+                    }
+                }
+
+                if (i % 6 === 0) {
+
+                    output += "<br>";
+                }
+            }
+
+            output += `
+                <br><br>
+
+                Enter seat number (1-36):
+
+                <input
+                    type="number"
+                    id="seatNumber"
+                >
+
+                <button onclick="confirmBooking()">
+                    Book Ticket
+                </button>
+            `;
+
+            document.getElementById("app").innerHTML =
+                output;
+        }
+
+
+        function confirmBooking() {
+
+            let seatNumber =
+                Number(
+                    document.getElementById("seatNumber").value
+                );
+
+            if (
+                seatNumber < 1 ||
+                seatNumber > 36
+            ) {
+
+                alert(
+                    "Invalid seat number! Must be between 1 and 36."
+                );
+
+                return;
+            }
+
+            for (
+                let i = 0;
+                i < bookingHistoryList.length;
+                i++
+            ) {
+
+                if (
+                    bookingHistoryList[i].movieName === selectedMovie.title &&
+                    bookingHistoryList[i].theatreName === selectedTheatre.name &&
+                    bookingHistoryList[i].seatNumber === seatNumber
+                ) {
+
+                    alert(
+                        "Sorry, seat " +
+                        seatNumber +
+                        " is already booked!"
+                    );
+
+                    return;
+                }
+            }
+
+            let newBooking = {
+
+                bookingId: bookingId,
+
+                movieName: selectedMovie.title,
+
+                theatreName: selectedTheatre.name,
+
+                seatNumber: seatNumber,
+
+                price: selectedTheatre.ticketPrice
+            };
+
+            bookingHistoryList.push(newBooking);
+
+            bookingId++;
+
+            alert(
+                "TICKET BOOKED SUCCESSFULLY!\n\n" +
+
+                "Booking ID: " +
+                newBooking.bookingId +
+
+                "\nMovie: " +
+                newBooking.movieName +
+
+                "\nTheatre: " +
+                newBooking.theatreName +
+
+                "\nSeat No: " +
+                newBooking.seatNumber +
+
+                "\nTotal Price: Rs. " +
+                newBooking.price
+            );
+
+            showSeats();
+        }
+
+
+        function cancelTicket() {
+
+            let cancelId =
+                Number(
+                    prompt(
+                        "Enter your Booking ID to cancel:"
+                    )
+                );
+
+            let cancelled = false;
+
+            for (
+                let i = 0;
+                i < bookingHistoryList.length;
+                i++
+            ) {
+
+                let booking =
+                    bookingHistoryList[i];
+
+                if (
+                    booking.bookingId === cancelId
+                ) {
+
+                    bookingHistoryList.splice(i, 1);
+
+                    alert(
+                        "Booking ID " +
+                        cancelId +
+                        " has been cancelled successfully.\n\n" +
+
+                        "Refund of Rs. " +
+                        booking.price +
+                        " has been initiated."
+                    );
+
+                    cancelled = true;
+
+                    break;
+                }
+            }
+
+            if (!cancelled) {
+
+                alert(
+                    "Booking ID not found. Please check and try again."
+                );
+            }
+        }
+
+
+        function bookingHistory() {
+
+            let output =
+                "<h2>Booking History</h2>";
+
+            if (
+                bookingHistoryList.length === 0
+            ) {
+
+                output +=
+                    "<p>No tickets booked yet.</p>";
+
+            } else {
+
+                for (
+                    let i = 0;
+                    i < bookingHistoryList.length;
+                    i++
+                ) {
+
+                    let booking =
+                        bookingHistoryList[i];
+
+                    output +=
+                        "Booking ID: " +
+                        booking.bookingId +
+
+                        " | Movie: " +
+                        booking.movieName +
+
+                        " | Theatre: " +
+                        booking.theatreName +
+
+                        " | Seat No: " +
+                        booking.seatNumber +
+
+                        " | Total Price: Rs. " +
+                        booking.price +
+
+                        "<br><br>";
+                }
+            }
+
+            document.getElementById("app").innerHTML =
+                output;
+        }
+
+
+        function exitSystem() {
+
+            alert(
+                "Exiting...\n\n" +
+                "Thank you for using our system!"
+            );
+        }
+
+
+        moviesAvailable();
+
+    </script>
+
+</body>
+
+</html>
